@@ -1,13 +1,16 @@
 // mqtt 모듈 세팅 -> client 생성 -> 구독 -> message 처리
 const express = require('express');
 const mqtt = require("mqtt");
+var s3 = require("./s3")
 
 const app = express();
 const port = 3001;
 app.set("port", port);
+
 app.get("/", (req, res) => {
   res.send("Hello world!");
 });
+
 
 // ** url 세팅해야됨 **
 const url = "mqtt://192.168.219.123";
@@ -26,9 +29,7 @@ const client = mqtt.connect(url);
 
 // client.on : 클라이언트 객체에서 발생하는 이벤트 처리를 위한 메서드
 // connect 이벤트는 client.connected 변수를 true로 설정
-client.on("connect", () => {
-  console.log("connected" + client.connected);
-});
+client.on("connect", () => console.log("connected" + client.connected));
 
 // 연결 종료
 // client.end();
@@ -49,19 +50,27 @@ client.on("connect", () => {
 // 하나의 topic : string
 // 여러 topic을 같은 'qos'로 구독 : array
 // 여러 topic을 다른 'qos'로 구독 : object
-const topic_s = "topic";
-const topic_list = ["topic2", "topic3", "topic4"];
-const topic_o = { topic22: 0, topic33: 1, topic44: 1 };
-client.subscribe(topic_s, { qos: 1 });
-client.subscribe(topic_list, { qos: 1 });
-client.subscribe(topic_o);
+// const topic_s = "test";
+// const topic_list = ["topic2", "topic3", "topic4"];
+// const topic_o = { topic22: 0, topic33: 1, topic44: 1 };
+// client.subscribe(topic_s, { qos: 1 });
+// client.subscribe(topic_list, { qos: 1 });
+// client.subscribe(topic_o);
+client.subscribe("test");
 
 // 구독했다면 message 이벤트로 리스너를 만들어서 처리 가능
 // message를 저장하기만 하면됨
+let msg = ""
 client.on("message", (topic, message, packet) => {
+  msg = String(message);
   console.log("message is " + message);
   console.log("topic is " + topic);
   console.log("packet is " + packet);
+
+});
+
+app.get("/mqtt", (req, res) => {
+  res.send("sub_message : "+msg);
 });
 
 app.listen(port, () => console.log("Listening on", port));
