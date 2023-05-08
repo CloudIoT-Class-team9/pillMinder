@@ -1,7 +1,9 @@
 // mqtt 모듈 세팅 -> client 생성 -> 구독 -> message 처리
-const express = require('express');
+const express = require("express");
+
 const mqtt = require("mqtt");
-var s3 = require("./s3")
+
+var s3 = require("./s3");
 
 const app = express();
 const port = 3001;
@@ -11,11 +13,10 @@ app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-
 // ** url 세팅해야됨 **
+// options : username, pw 를 요구하는 broker라면 객체안에 다음과 같이 값을 넣어주면됨
 const url = "mqtt://192.168.219.123";
 
-// options : username, pw 를 요구하는 broker라면 객체안에 다음과 같이 값을 넣어주면됨
 const options = {
   host: "127.0.0.1",
   port: 8883,
@@ -60,17 +61,16 @@ client.subscribe("test");
 
 // 구독했다면 message 이벤트로 리스너를 만들어서 처리 가능
 // message를 저장하기만 하면됨
-let msg = ""
+let msg = "";
 client.on("message", (topic, message, packet) => {
   msg = String(message);
   console.log("message is " + message);
   console.log("topic is " + topic);
   console.log("packet is " + packet);
-
 });
 
 app.get("/mqtt", (req, res) => {
-  res.send("sub_message : "+msg);
+  res.send("sub_message : " + msg);
 });
 
 app.listen(port, () => console.log("Listening on", port));
