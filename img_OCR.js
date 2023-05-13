@@ -22,10 +22,14 @@ let imagePath = './images/닥터베아제정.png';
 
 // 이미지에서 텍스트를 추출하는 함수
 async function detectText(imagePath) {
-  const [result] = await client.textDetection(imagePath);
-  const annotations = result.textAnnotations;
-
-  return annotations.map((annotation) => annotation.description).join('');
+  try {
+    const [result] = await client.textDetection(imagePath);
+    const annotations = result.textAnnotations;
+    return annotations.map((annotation) => annotation.description).join('');
+  } catch (error) {
+    console.error('텍스트 추출 중 오류가 발생했습니다.', error);
+    throw error;
+  }
 }
 
 // 추출한 텍스트에서 pill 정보를 찾는 함수
@@ -42,14 +46,18 @@ function findPill(text) {
 
 // 찾은 pill 정보를 리턴하는 함수
 async function detectPillFromImage(imagePath) {
-  const textResult = await detectText(imagePath);
-  const pill = findPill(textResult);
+  try {
+    const textResult = await detectText(imagePath);
+    const pill = findPill(textResult);
 
-  if (pill === '') {
-    console.log('약 정보를 찾지 못했습니다.');
-  } else {
-    console.log(pill);
-    return pill;
+    if (pill === '') {
+      console.log('약 정보를 찾지 못했습니다.');
+    } else {
+      console.log(pill);
+      return pill;
+    }
+  } catch (error) {
+    console.error('오류가 발생했습니다.', error);
   }
 }
 
