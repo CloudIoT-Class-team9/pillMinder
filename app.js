@@ -1,10 +1,9 @@
 // mqtt 모듈 세팅 -> client 생성 -> 구독 -> message 처리
 const express = require("express");
 const { MongoClient } = require("mongodb");
-
 const mqtt = require("mqtt");
-
 var s3 = require("./s3");
+const medications = require("./Model/pillData");
 
 const app = express();
 const port = 3001;
@@ -53,42 +52,40 @@ app.listen(port, () => console.log("Listening on", port));
 module.exports = app;
 
 // mongoDB
-const mongoUrl = "mongodb://localhost:27017"; // MongoDB 서버의 호스트 및 포트
-const dbName = "mydatabase"; // 데이터베이스 이름
 const mongoose = require("mongoose");
+
+// schema / medicine 정보 저장
 mongoose
   .connect(
-    "mongodb+srv://Seung:smGAE5i9LplOt26V@cloudiot.ihcmy0s.mongodb.net/?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
+    "mongodb+srv://Seung:smGAE5i9LplOt26V@cloudiot.ihcmy0s.mongodb.net/?retryWrites=true&w=majority"
   )
-  .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
+  .then(() => {
+    console.log("MongoDB Connected...");
 
-const mongoClient = new MongoClient(mongoUrl);
+    const medicationSchema = new mongoose.Schema({
+      name: String,
+      symptoms: [String],
+      dosage: {
+        adult: String,
+        pediatric: String,
+      },
+      frequency: String,
+    });
 
-async function connectToMongoDB() {
-  try {
-    // MongoDB 서버에 연결
-    await client.connect();
-    console.log("MongoDB에 연결되었습니다.");
+    const Medication = mongoose.model("Medication", medicationSchema);
 
-    // 데이터베이스 선택
-    const db = mongoClient.db(dbName);
-
-    // 여기에서 추가적인 작업을 수행
-    // 예를 들면 컬렉션에 데이터를 삽입, 조회, 업데이트, 삭제하는 등의 작업
-  } catch (error) {
+    Promise.all(
+      medications.map((medication) => new Medication(medication).save())
+    )
+      .then(() => {
+        console.log("약 데이터가 MongoDB에 저장되었습니다.");
+        mongoose.connection.close();
+      })
+      .catch((error) => {
+        console.error("약 데이터 저장 중 오류가 발생했습니다:", error);
+        mongoose.connection.close();
+      });
+  })
+  .catch((error) => {
     console.error("MongoDB 연결 중 오류가 발생했습니다:", error);
-  } finally {
-    // MongoDB 연결 종료
-    await client.close();
-    console.log("MongoDB 연결이 닫혔습니다.");
-  }
-}
-
-connectToMongoDB();
+  });
