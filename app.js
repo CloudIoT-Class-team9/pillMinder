@@ -1,5 +1,6 @@
 // mqtt 모듈 세팅 -> client 생성 -> 구독 -> message 처리
 const express = require("express");
+const { MongoClient } = require("mongodb");
 
 const mqtt = require("mqtt");
 
@@ -32,31 +33,6 @@ const client = mqtt.connect(url);
 // connect 이벤트는 client.connected 변수를 true로 설정
 client.on("connect", () => console.log("connected" + client.connected));
 
-// 연결 종료
-// client.end();
-
-// error : 연결 실패
-// client.on("error", (error) => {
-//     console.log("Can't connect" + error);
-// })
-
-// 메시지 publish : client.publish(topic, message, [options], [callback])
-// var options2 = {
-//   retain: true,
-//   qos: 1,
-// };
-// client.publish("testtopic", "test message", options);
-
-// Topic에 Subscribe : client.subscribe(topic/topic array/topic object, [options], [callback])
-// 하나의 topic : string
-// 여러 topic을 같은 'qos'로 구독 : array
-// 여러 topic을 다른 'qos'로 구독 : object
-// const topic_s = "test";
-// const topic_list = ["topic2", "topic3", "topic4"];
-// const topic_o = { topic22: 0, topic33: 1, topic44: 1 };
-// client.subscribe(topic_s, { qos: 1 });
-// client.subscribe(topic_list, { qos: 1 });
-// client.subscribe(topic_o);
 client.subscribe("test");
 
 // 구독했다면 message 이벤트로 리스너를 만들어서 처리 가능
@@ -75,3 +51,44 @@ app.get("/mqtt", (req, res) => {
 
 app.listen(port, () => console.log("Listening on", port));
 module.exports = app;
+
+// mongoDB
+const mongoUrl = "mongodb://localhost:27017"; // MongoDB 서버의 호스트 및 포트
+const dbName = "mydatabase"; // 데이터베이스 이름
+const mongoose = require("mongoose");
+mongoose
+  .connect(
+    "mongodb+srv://Seung:smGAE5i9LplOt26V@cloudiot.ihcmy0s.mongodb.net/?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    }
+  )
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
+
+const mongoClient = new MongoClient(mongoUrl);
+
+async function connectToMongoDB() {
+  try {
+    // MongoDB 서버에 연결
+    await client.connect();
+    console.log("MongoDB에 연결되었습니다.");
+
+    // 데이터베이스 선택
+    const db = mongoClient.db(dbName);
+
+    // 여기에서 추가적인 작업을 수행
+    // 예를 들면 컬렉션에 데이터를 삽입, 조회, 업데이트, 삭제하는 등의 작업
+  } catch (error) {
+    console.error("MongoDB 연결 중 오류가 발생했습니다:", error);
+  } finally {
+    // MongoDB 연결 종료
+    await client.close();
+    console.log("MongoDB 연결이 닫혔습니다.");
+  }
+}
+
+connectToMongoDB();
