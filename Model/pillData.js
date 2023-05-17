@@ -15,7 +15,6 @@ const medications = [
     },
     frequency:
       '이 약은 가능한 최단기간동안 최소 유효용량으로 복용하며, 1일 5회 (75mg/kg)를 초과하여 복용하지 않는다.',
-    keywords: ['타이레놀정160밀리그람'],
   },
   {
     name: '타이레놀정500mg',
@@ -33,7 +32,6 @@ const medications = [
     },
     frequency:
       '이 약은 가능한 최단기간동안 최소 유효용량으로 복용한다. 1일 최대 4그램 (8정)을 초과하여 복용하지 않는다.',
-    keywords: ['타이레놀정500밀리그람'],
   },
   {
     name: '어린이용타이레놀정80mg',
@@ -51,7 +49,6 @@ const medications = [
     },
     frequency:
       '이 약은 가능한 최단기간동안 최소 유효용량으로 복용하며, 1일 5회 (75mg/kg)를 초과하여 복용하지 않는다. 몸무게를 아는 경우 몸무게에 따른 용량 (10~15mg/kg)으로 복용하는 것이 더 적절하다.',
-    keywords: ['80밀리그람아세트아미노펜'],
   },
   {
     name: '어린이타이레놀현탁액',
@@ -69,7 +66,6 @@ const medications = [
     },
     frequency:
       '이 약은 가능한 최단기간동안 최소 유효용량으로 복용하며, 1일 5회 (75mg/kg)를 초과하여 복용하지 않는다. 몸무게를 아는 경우 몸무게에 따른 용량 (10~15mg/kg)으로 복용하는 것이 더 적절하다.',
-    keywords: ['현탁액'],
   },
   {
     name: '판피린티정',
@@ -81,7 +77,6 @@ const medications = [
       child: '사용하지 않음',
     },
     frequency: '이 약은 가능한 최단기간동안 최소 유효용량으로 복용한다.',
-    keywords: ['판피린'],
   },
   {
     name: '판콜에이내복액',
@@ -93,7 +88,6 @@ const medications = [
       child: '사용하지 않음',
     },
     frequency: '이 약은 가능한 최단기간동안 최소 유효용량으로 복용한다.',
-    keywords: ['판콜에이'],
   },
   {
     name: '닥터베아제정',
@@ -109,7 +103,6 @@ const medications = [
       adult: '성인: 1회 1정을 1일 3회 식후 복용',
     },
     frequency: '',
-    keywords: ['보강된2단계빠른소화제베아제'],
   },
   {
     name: '베아제정',
@@ -125,7 +118,6 @@ const medications = [
       adult: '성인: 1회 1정, 1일 3회 식후에 복용',
     },
     frequency: '',
-    keywords: ['위와 장에서 작용하는 2단계 빠른 소화제'],
   },
   {
     name: '훼스탈골드정',
@@ -142,7 +134,6 @@ const medications = [
       child: '사용하지 않음',
     },
     frequency: '',
-    keywords: ['훼스탈골드정'],
   },
   {
     name: '훼스탈플러스정',
@@ -152,7 +143,6 @@ const medications = [
       child: '소아(만 8세~만15세미만) 1회 1정',
     },
     frequency: '1일 3회, 식사 후 씹지 말고 복용한다',
-    keywords: ['훼스탈플러스'],
   },
   {
     name: '어린이부루펜시럽',
@@ -163,7 +153,6 @@ const medications = [
         '11-14세 : 200-250mg (10-13ml), 7-10세 : 150-200mg ( 8-10ml), 3- 6세 : 100-150mg ( 5- 8ml), 1- 2세 : 50-100mg ( 3- 5ml)',
     },
     frequency: '',
-    keywords: ['부루펜'],
   },
 ];
 
