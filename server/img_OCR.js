@@ -18,7 +18,7 @@ const PILLS = [
   { name: '훼스탈플러스정', keywords: ['훼스탈플러스'] },
 ];
 
-let imagePath = './images/닥터베아제정.png';
+let imagePath = './images/타이레놀예시.jpeg';
 
 // 이미지에서 텍스트를 추출하는 함수
 async function detectText(imagePath) {
