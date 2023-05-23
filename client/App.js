@@ -1,17 +1,25 @@
+import AlarmScreen from './AlarmScreen';
 import MainScreen from './MainScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name='PillMinder' component={MainScreen} />
-        {/* 스크린 추가 */}
-      </Stack.Navigator>
+      <Tab.Navigator
+        tabBarOptions={{
+          labelStyle: {
+            fontSize: 14,
+          },
+        }}
+      >
+        <Tab.Screen name='대시보드' component={MainScreen} />
+        <Tab.Screen name='복약 알림' component={AlarmScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };

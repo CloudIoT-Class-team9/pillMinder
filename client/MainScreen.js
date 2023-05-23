@@ -102,6 +102,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
   },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
   userCard: {
     borderRadius: 8,
     marginBottom: 16,
@@ -135,6 +139,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
   },
+  medicationPhoto: {
+    width: 60,
+    height: 60,
+    borderRadius: 26,
+  },
+  medicationTextContainer: {
+    marginLeft: 8,
+  },
   medicationInfoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -144,15 +156,11 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     borderColor: '#ecedef',
     borderWidth: 1,
+    paddingHorizontal: 16,
   },
-  medicationPhoto: {
+  alarmIcon: {
     width: 60,
     height: 60,
-    borderRadius: 26,
-    marginLeft: 8,
-  },
-  medicationTextContainer: {
-    marginLeft: 8,
   },
   medicationName: {
     fontSize: 20,
@@ -169,10 +177,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     marginBottom: 8,
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
   },
   healthInfoContainer: {
     marginTop: 8,
