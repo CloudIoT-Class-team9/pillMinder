@@ -1,21 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
+import MainScreen from './MainScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import { StatusBar } from 'expo-status-bar';
+const Stack = createStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>pillMinder 앱 구동 test</Text>
-      <StatusBar style='auto' />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='PillMinder' component={MainScreen} />
+        {/* 스크린 추가 */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
