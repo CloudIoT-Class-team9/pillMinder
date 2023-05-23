@@ -1,12 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
-import styled from 'styled-components/native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>pillMinder</Text>
+      <Text>pillMinder 앱 구동 test</Text>
       <StatusBar style='auto' />
     </View>
   );
