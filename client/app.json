@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "PillMinder",
-    "slug": "PillMinder",
+    "slug": "pillminder",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -23,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "22feca0d-d496-4f97-a51f-fd4844e1d89d"
+      }
+    },
+    "owner": "iamphj3"
   }
 }
