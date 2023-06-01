@@ -2,12 +2,12 @@ import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'reac
 
 import React from 'react';
 
-const HealthScreen = () => {
+const DashBoardScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.userCard}>
         <ImageBackground
-          source={require('./assets/background_image.png')}
+          source={require('../assets/background_image.png')}
           style={styles.userCardBackground}
         >
           <Text style={styles.dateText}>5월 23일</Text>
@@ -21,7 +21,7 @@ const HealthScreen = () => {
         <Text style={styles.cardTitle}>오늘의 복약 알림</Text>
       </View>
       <View style={styles.medicationInfoContainer}>
-        <Image source={require('./assets/pill.png')} style={styles.medicationPhoto} />
+        <Image source={require('../assets/pill.png')} style={styles.medicationPhoto} />
         <View style={styles.medicationTextContainer}>
           <Text style={styles.medicationName}>타이레놀정500mg</Text>
           <Text style={styles.medicationInstructions}>1일 3회 복용</Text>
@@ -35,7 +35,7 @@ const HealthScreen = () => {
           <View style={styles.healthInfoCard}>
             <View style={styles.cardContent}>
               <View style={styles.imageContainer}>
-                <Image source={require('./assets/ic_1.png')} style={styles.healthInfoImage} />
+                <Image source={require('../assets/ic_1.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Heart Rate</Text>
               <Text style={styles.healthDetailText}>Heart Rate 데이터</Text>
@@ -44,7 +44,7 @@ const HealthScreen = () => {
           <View style={styles.healthInfoCard}>
             <View style={styles.cardContent}>
               <View style={styles.imageContainer}>
-                <Image source={require('./assets/ic_2.png')} style={styles.healthInfoImage} />
+                <Image source={require('../assets/ic_2.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Heart</Text>
               <Text style={styles.healthDetailText}>Heart 데이터</Text>
@@ -55,7 +55,7 @@ const HealthScreen = () => {
           <View style={styles.healthInfoCard}>
             <View style={styles.cardContent}>
               <View style={styles.imageContainer}>
-                <Image source={require('./assets/ic_3.png')} style={styles.healthInfoImage} />
+                <Image source={require('../assets/ic_3.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Temperature</Text>
               <Text style={styles.healthDetailText}>Temperature 데이터</Text>
@@ -64,7 +64,7 @@ const HealthScreen = () => {
           <View style={styles.healthInfoCard}>
             <View style={styles.cardContent}>
               <View style={styles.imageContainer}>
-                <Image source={require('./assets/ic_4.png')} style={styles.healthInfoImage} />
+                <Image source={require('../assets/ic_4.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Stress</Text>
               <Text style={styles.healthDetailText}>Stress 데이터</Text>
@@ -75,7 +75,7 @@ const HealthScreen = () => {
           <View style={styles.healthInfoCard}>
             <View style={styles.cardContent}>
               <View style={styles.imageContainer}>
-                <Image source={require('./assets/ic_1.png')} style={styles.healthInfoImage} />
+                <Image source={require('../assets/ic_1.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Heart Rate</Text>
               <Text style={styles.healthDetailText}>Heart Rate 데이터</Text>
@@ -84,7 +84,7 @@ const HealthScreen = () => {
           <View style={styles.healthInfoCard}>
             <View style={styles.cardContent}>
               <View style={styles.imageContainer}>
-                <Image source={require('./assets/ic_2.png')} style={styles.healthInfoImage} />
+                <Image source={require('../assets/ic_2.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Heart</Text>
               <Text style={styles.healthDetailText}>Heart 데이터</Text>
@@ -219,4 +219,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HealthScreen;
+export default DashBoardScreen;

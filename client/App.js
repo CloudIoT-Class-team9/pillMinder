@@ -1,11 +1,12 @@
 import * as Notifications from 'expo-notifications';
 
-import AlarmScreen from './AlarmScreen';
-import MainScreen from './MainScreen';
+import { React, useEffect } from 'react';
+
+import AlarmListScreen from './screens/AlarmListScreen';
+import DashBoardScreen from './screens/DashBoardScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useEffect } from 'react';
+import { sendNotification } from './utils/sendNotification';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,17 +28,6 @@ const App = () => {
       }
     })();
   }, []);
-
-  // 알림 전송
-  const sendNotification = async () => {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: '알림 제목 테스트',
-        body: '알림 내용 테스트',
-      },
-      trigger: null, // 즉시 보내려면 'trigger'에 'null'을 설정
-    });
-  };
 
   useEffect(() => {
     sendNotification();
@@ -61,8 +51,8 @@ const App = () => {
           },
         }}
       >
-        <Tab.Screen name='대시보드' component={MainScreen} />
-        <Tab.Screen name='복약 알림' component={AlarmScreen} />
+        <Tab.Screen name='대시보드' component={DashBoardScreen} />
+        <Tab.Screen name='복약 알림' component={AlarmListScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
