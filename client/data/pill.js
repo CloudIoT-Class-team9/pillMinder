@@ -8,6 +8,12 @@ export const PILL_REQ = {
 
 // response body
 export const PILL_RES = {
-  adult: 3,
-  child: 1,
+  adult: {
+    pills: 2, // 한 번에 복용해야 하는 약 갯수 (Number)
+    times: 3, // 하루에 몇 회 복용해야 하는지 (Number)
+  },
+  child: {
+    pills: 1,
+    times: 1,
+  },
 };
