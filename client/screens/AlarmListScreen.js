@@ -2,33 +2,21 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import React from 'react';
 
-const AlarmListScreen = () => {
+const AlarmListScreen = (pillname, ALARM_TIMES) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.medicationCard}>
         <Text style={styles.cardTitle}>오늘의 복약 알림</Text>
       </View>
-      <View style={styles.medicationInfoContainer}>
-        <Image source={require('../assets/ic_alarm.png')} style={styles.medicationPhoto} />
-        <View style={styles.medicationTextContainer}>
-          <Text style={styles.medicationName}>타이레놀정500mg</Text>
-          <Text style={styles.medicationInstructions}>2023.05.23 23:00</Text>
+      {ALARM_TIMES.map((alarm, index) => (
+        <View key={index} style={styles.medicationInfoContainer}>
+          <Image source={require('../assets/ic_alarm.png')} style={styles.medicationPhoto} />
+          <View style={styles.medicationTextContainer}>
+            <Text style={styles.medicationName}>{pillname}</Text>
+            <Text style={styles.medicationInstructions}>{alarm}</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.medicationInfoContainer}>
-        <Image source={require('../assets/ic_alarm.png')} style={styles.medicationPhoto} />
-        <View style={styles.medicationTextContainer}>
-          <Text style={styles.medicationName}>타이레놀정500mg</Text>
-          <Text style={styles.medicationInstructions}>2023.05.23 15:00</Text>
-        </View>
-      </View>
-      <View style={styles.medicationInfoContainer}>
-        <Image source={require('../assets/ic_alarm.png')} style={styles.medicationPhoto} />
-        <View style={styles.medicationTextContainer}>
-          <Text style={styles.medicationName}>타이레놀정500mg</Text>
-          <Text style={styles.medicationInstructions}>2023.05.23 09:00</Text>
-        </View>
-      </View>
+      ))}
     </ScrollView>
   );
 };

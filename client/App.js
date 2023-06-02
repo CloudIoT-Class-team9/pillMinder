@@ -5,7 +5,10 @@ import { getFitbitData, getPillData, getUserData } from './apis/api';
 
 import AlarmListScreen from './screens/AlarmListScreen';
 import DashBoardScreen from './screens/DashBoardScreen';
+import { FITBIT_RES } from './data/fitbit';
 import { NavigationContainer } from '@react-navigation/native';
+import { PILL_RES } from './data/pill';
+import { USER_RES } from './data/user';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { sendPillNotification } from './utils/sendPillNotification';
 
@@ -58,14 +61,12 @@ const App = () => {
   // API 호출 및 저장
   useEffect(() => {
     (async () => {
-      const user = await getUserData(CLIENT_ID);
-      setUserdata(user);
-
-      const pill = await getPillData(userData.pillname);
-      setPilldata(pill);
-
-      const fitbit = await getFitbitData(CLIENT_ID, DATE, ALARM_TIMES[0]);
-      setFitbitdata(fitbit);
+      // const user = await getUserData(CLIENT_ID);
+      // setUserdata(user);
+      // const pill = await getPillData(userData.pillname);
+      // setPilldata(pill);
+      // const fitbit = await getFitbitData(CLIENT_ID, DATE, ALARM_TIMES[0]);
+      // setFitbitdata(fitbit);
     })();
   }, []);
 
@@ -82,7 +83,7 @@ const App = () => {
   // 알람 예약
   useEffect(() => {
     (async () => {
-      await sendPillNotification('타이레놀정160mg', 1, 3);
+      await sendPillNotification(USER_RES.pillname, PILL_RES.adult.pills, PILL_RES.adult.times);
 
       const subscription = Notifications.addNotificationReceivedListener((notification) => {
         // 알림이 수신된 경우 처리할 코드
@@ -104,7 +105,10 @@ const App = () => {
           },
         }}
       >
-        <Tab.Screen name='대시보드' component={DashBoardScreen} />
+        <Tab.Screen
+          name='대시보드'
+          component={DashBoardScreen(DATE, USER_RES, PILL_RES, FITBIT_RES)}
+        />
         <Tab.Screen name='복약 알림' component={AlarmListScreen} />
       </Tab.Navigator>
     </NavigationContainer>
