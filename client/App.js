@@ -11,6 +11,32 @@ import { sendPillNotification } from './utils/sendPillNotification';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
+  const CLIENT_ID = 'Seung123';
+
+  const USER_DATA = {
+    name: '남궁승',
+    age: 24,
+    pillname: '타이레놀정160mg',
+  };
+
+  const PILL_DATA = {
+    adult: {
+      pills: 2,
+      times: 3,
+    },
+    child: {
+      pills: 1,
+      times: 1,
+    },
+  };
+
+  const FITBIT_DATA = {
+    heartRate: '76.4',
+    temperature: '36.4',
+  };
+
+  const ALARM_TIMES = [];
+
   // 알림 권한 설정
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -30,11 +56,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // const removeAllScheduledNotifications = async () => {
-    //   await Notifications.cancelAllScheduledNotificationsAsync();
-    // };
-    // removeAllScheduledNotifications();
-
     (async () => {
       await sendPillNotification('타이레놀정160mg', 1, 3);
 
