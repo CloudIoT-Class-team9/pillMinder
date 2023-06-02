@@ -47,7 +47,7 @@ const App = () => {
     temperature: '0',
   });
 
-  const ALARM_TIMES = [];
+  const ALARM_TIMES = ['1:32:20', '9:32:20', '17:32:20'];
 
   // 알림 권한 설정
   Notifications.setNotificationHandler({
@@ -99,7 +99,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        tabBarOptions={{
+        screenOptions={{
           labelStyle: {
             fontSize: 14,
           },
@@ -118,7 +118,7 @@ const App = () => {
         <Tab.Screen
           name='복약 알림'
           initialParams={{
-            pillName: PILL_RES.pillname,
+            pillName: USER_RES.pillname,
             alarmTimes: ALARM_TIMES,
           }}
           component={AlarmListScreen}
