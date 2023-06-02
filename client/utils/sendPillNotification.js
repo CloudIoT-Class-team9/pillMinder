@@ -12,7 +12,7 @@ export const sendPillNotification = async (pillname, pills, alarmNum) => {
 
   //  알림 예약 함수 (각각의 알림을 스케줄링)
   const scheduleMultipleNotifications = async () => {
-    // 간격을 계산하기 위한 1일의 밀리초 값
+    // 간격을 계산하기 위한 1일의 밀리초 값 (24 * 60 * 60 * 1000)
     const oneDay = 5 * 60 * 1000;
 
     const interval = oneDay / alarmNum;

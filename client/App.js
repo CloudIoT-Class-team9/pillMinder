@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
 
 import { React, useEffect, useState } from 'react';
-import { getFitbitData, getPillData, getUserData } from './apis/api';
+import { getFitbitData, getPillData, getUser, getUserData } from './apis/api';
 
 import AlarmListScreen from './screens/AlarmListScreen';
 import DashBoardScreen from './screens/DashBoardScreen';
@@ -9,14 +9,11 @@ import { FITBIT_RES } from './data/fitbit';
 import { NavigationContainer } from '@react-navigation/native';
 import { PILL_RES } from './data/pill';
 import { USER_RES } from './data/user';
-import { authorize } from './Auth';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { sendPillNotification } from './utils/sendPillNotification';
 
 const Tab = createBottomTabNavigator();
-const code = await authorize();
 
-console.log(code);
 const App = () => {
   const today = new Date();
   const todayYear = today.getFullYear();
@@ -24,15 +21,14 @@ const App = () => {
   const todayDate = today.getDate();
 
   const DATE = `${todayYear}-${todayMonth}-${todayDate}`;
-  const CLIENT_ID = 'Seung123';
+  const CLIENT_ID = 'Seung';
 
-  console.log(DATE);
-
-  const [userData, setUserdata] = useState({
-    name: '',
-    age: 0,
-    pillname: '',
-  });
+  const [userData, setUserdata] = useState();
+  // {
+  // name: '',
+  // age: 0,
+  // pillname: '',
+  // }
 
   const [pillData, setPilldata] = useState({
     adult: {
@@ -62,15 +58,25 @@ const App = () => {
   });
 
   // API 호출 및 저장
+  // useEffect(() => {
+  // (async () => {
+  // const user = await getUser(CLIENT_ID);
+  // setUserdata(user);
+  // const pill = await getPillData(userData.pillname);
+  // setPilldata(pill);
+  // const fitbit = await getFitbitData(CLIENT_ID, DATE, ALARM_TIMES[0]);
+  // setFitbitdata(fitbit);
+  // })();
+  // }, []);
+
   useEffect(() => {
-    (async () => {
-      // const user = await getUserData(CLIENT_ID);
-      // setUserdata(user);
-      // const pill = await getPillData(userData.pillname);
-      // setPilldata(pill);
-      // const fitbit = await getFitbitData(CLIENT_ID, DATE, ALARM_TIMES[0]);
-      // setFitbitdata(fitbit);
-    })();
+    const fetchUserData = async () => {
+      const user = await getUser(CLIENT_ID);
+      setUserdata(user);
+      console.log('userData', userData);
+    };
+
+    fetchUserData();
   }, []);
 
   // 알람 권한 허용
@@ -85,16 +91,16 @@ const App = () => {
 
   // 알람 예약
   useEffect(() => {
-    // (async () => {
-    //   await sendPillNotification(USER_RES.pillname, PILL_RES.adult.pills, PILL_RES.adult.times);
-    //   const subscription = Notifications.addNotificationReceivedListener((notification) => {
-    //     // 알림이 수신된 경우 처리할 코드
-    //     console.log('알림 수신:', notification);
-    //   });
-    //   return () => {
-    //     subscription.remove();
-    //   };
-    // })();
+    (async () => {
+      await sendPillNotification(USER_RES.pillname, PILL_RES.adult.pills, PILL_RES.adult.times);
+      const subscription = Notifications.addNotificationReceivedListener((notification) => {
+        // 알림이 수신된 경우 처리할 코드
+        console.log('알림 수신:', notification);
+      });
+      return () => {
+        subscription.remove();
+      };
+    })();
   }, []);
 
   return (
@@ -110,7 +116,6 @@ const App = () => {
           name='대시보드'
           initialParams={{
             date: DATE,
-            userData: USER_RES,
             pillData: PILL_RES,
             fitbitData: FITBIT_RES,
           }}
@@ -119,7 +124,7 @@ const App = () => {
         <Tab.Screen
           name='복약 알림'
           initialParams={{
-            pillName: USER_RES.pillname,
+            pillName: userData,
             alarmTimes: ALARM_TIMES,
           }}
           component={AlarmListScreen}

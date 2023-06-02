@@ -1,9 +1,27 @@
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { React, useEffect, useState } from 'react';
 
-import React from 'react';
+import { getUser } from '../apis/api';
 
 const DashBoardScreen = ({ route }) => {
-  const { date, userData, pillData, fitbitData } = route.params;
+  const { date, pillData, fitbitData } = route.params;
+
+  const [userData, setUserdata] = useState({});
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = await getUser('Seung');
+      if (user !== undefined) {
+        setUserdata(user);
+        console.log('userData', userData);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  console.log('userData', userData);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.userCard}>

@@ -14,7 +14,7 @@ const AlarmListScreen = ({ route }) => {
         <View key={index} style={styles.medicationInfoContainer}>
           <Image source={require('../assets/ic_alarm.png')} style={styles.medicationPhoto} />
           <View style={styles.medicationTextContainer}>
-            <Text style={styles.medicationName}>{pillName}</Text>
+            <Text style={styles.medicationName}>{pillName.pillname}</Text>
             <Text style={styles.medicationInstructions}>{alarm}</Text>
           </View>
         </View>
