@@ -2,7 +2,7 @@ import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'reac
 
 import React from 'react';
 
-const DashBoardScreen = () => {
+const DashBoardScreen = (DATE, userData, pillData, fitbitData) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.userCard}>
@@ -10,9 +10,9 @@ const DashBoardScreen = () => {
           source={require('../assets/background_image.png')}
           style={styles.userCardBackground}
         >
-          <Text style={styles.dateText}>5월 23일</Text>
+          <Text style={styles.dateText}>{DATE}</Text>
           <Text style={styles.greetingText}>
-            <Text style={styles.nameText}>박현지 </Text>
+            <Text style={styles.nameText}>{userData.name}</Text>
             보호자님, 안녕하세요
           </Text>
         </ImageBackground>
@@ -23,8 +23,10 @@ const DashBoardScreen = () => {
       <View style={styles.medicationInfoContainer}>
         <Image source={require('../assets/pill.png')} style={styles.medicationPhoto} />
         <View style={styles.medicationTextContainer}>
-          <Text style={styles.medicationName}>타이레놀정500mg</Text>
-          <Text style={styles.medicationInstructions}>1일 3회 복용</Text>
+          <Text style={styles.medicationName}>{userData.pillname}</Text>
+          <Text style={styles.medicationInstructions}>
+            1일 {pillData.adult.times}회 {pillData.adult.pills}정 복용
+          </Text>
         </View>
       </View>
       <View style={styles.dashboardCard}>
@@ -38,7 +40,7 @@ const DashBoardScreen = () => {
                 <Image source={require('../assets/ic_1.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Heart Rate</Text>
-              <Text style={styles.healthDetailText}>Heart Rate 데이터</Text>
+              <Text style={styles.healthDetailText}>{fitbitData.heartRate}</Text>
             </View>
           </View>
           <View style={styles.healthInfoCard}>
@@ -47,7 +49,7 @@ const DashBoardScreen = () => {
                 <Image source={require('../assets/ic_2.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Heart</Text>
-              <Text style={styles.healthDetailText}>Heart 데이터</Text>
+              <Text style={styles.healthDetailText}>{fitbitData.heartRate}</Text>
             </View>
           </View>
         </View>
@@ -58,7 +60,7 @@ const DashBoardScreen = () => {
                 <Image source={require('../assets/ic_3.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Temperature</Text>
-              <Text style={styles.healthDetailText}>Temperature 데이터</Text>
+              <Text style={styles.healthDetailText}>{fitbitData.temperature}</Text>
             </View>
           </View>
           <View style={styles.healthInfoCard}>
@@ -68,26 +70,6 @@ const DashBoardScreen = () => {
               </View>
               <Text style={styles.healthInfoText}>Stress</Text>
               <Text style={styles.healthDetailText}>Stress 데이터</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.healthInfoRow}>
-          <View style={styles.healthInfoCard}>
-            <View style={styles.cardContent}>
-              <View style={styles.imageContainer}>
-                <Image source={require('../assets/ic_1.png')} style={styles.healthInfoImage} />
-              </View>
-              <Text style={styles.healthInfoText}>Heart Rate</Text>
-              <Text style={styles.healthDetailText}>Heart Rate 데이터</Text>
-            </View>
-          </View>
-          <View style={styles.healthInfoCard}>
-            <View style={styles.cardContent}>
-              <View style={styles.imageContainer}>
-                <Image source={require('../assets/ic_2.png')} style={styles.healthInfoImage} />
-              </View>
-              <Text style={styles.healthInfoText}>Heart</Text>
-              <Text style={styles.healthDetailText}>Heart 데이터</Text>
             </View>
           </View>
         </View>

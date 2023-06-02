@@ -1,6 +1,7 @@
 import * as Notifications from 'expo-notifications';
 
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
+import { getFitbitData, getPillData, getUserData } from './apis/api';
 
 import AlarmListScreen from './screens/AlarmListScreen';
 import DashBoardScreen from './screens/DashBoardScreen';
@@ -11,29 +12,37 @@ import { sendPillNotification } from './utils/sendPillNotification';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
+  const today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth() + 1;
+  const todayDate = today.getDate();
+
+  const DATE = `${todayYear}-${todayMonth}-${todayDate}`;
   const CLIENT_ID = 'Seung123';
 
-  const USER_DATA = {
-    name: '남궁승',
-    age: 24,
-    pillname: '타이레놀정160mg',
-  };
+  console.log(DATE);
 
-  const PILL_DATA = {
+  const [userData, setUserdata] = useState({
+    name: '',
+    age: 0,
+    pillname: '',
+  });
+
+  const [pillData, setPilldata] = useState({
     adult: {
-      pills: 2,
-      times: 3,
+      pills: 0,
+      times: 0,
     },
     child: {
-      pills: 1,
-      times: 1,
+      pills: 0,
+      times: 0,
     },
-  };
+  });
 
-  const FITBIT_DATA = {
-    heartRate: '76.4',
-    temperature: '36.4',
-  };
+  const [fitbitData, setFitbitdata] = useState({
+    heartRate: '0',
+    temperature: '0',
+  });
 
   const ALARM_TIMES = [];
 
@@ -46,6 +55,21 @@ const App = () => {
     }),
   });
 
+  // API 호출 및 저장
+  useEffect(() => {
+    (async () => {
+      const user = await getUserData(CLIENT_ID);
+      setUserdata(user);
+
+      const pill = await getPillData(userData.pillname);
+      setPilldata(pill);
+
+      const fitbit = await getFitbitData(CLIENT_ID, DATE, ALARM_TIMES[0]);
+      setFitbitdata(fitbit);
+    })();
+  }, []);
+
+  // 알람 권한 허용
   useEffect(() => {
     (async () => {
       const { status } = await Notifications.requestPermissionsAsync();
@@ -55,6 +79,7 @@ const App = () => {
     })();
   }, []);
 
+  // 알람 예약
   useEffect(() => {
     (async () => {
       await sendPillNotification('타이레놀정160mg', 1, 3);

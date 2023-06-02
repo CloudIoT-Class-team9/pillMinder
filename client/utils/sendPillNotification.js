@@ -42,7 +42,8 @@ export const sendPillNotification = async (pillname, pills, alarmNum) => {
       const date = new Date(trigger);
       const hours = date.getHours();
       const minutes = date.getMinutes();
-      const formattedDate = `${hours}:${minutes}`;
+      const seconds = date.getSeconds();
+      const formattedDate = `${hours}:${minutes}:${seconds}`;
 
       alarmTimes.push(formattedDate);
       console.log(`복약 알림 ${i}이 ${formattedDate}에 예약되었습니다.`);
