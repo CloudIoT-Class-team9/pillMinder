@@ -1,16 +1,13 @@
-// 약 정보 임시 더미데이터
+// 약 정보 get API
+// (약 이름을 보내서 요청 시 '성인 복용 횟수', '어린이 복용 횟수' 응답)
 
+// request body
 export const PILL_REQ = {
   pillname: '훼스탈골드정',
 };
 
+// response body
 export const PILL_RES = {
-  effects: '두통',
-  adultUsage: '성인 1회 1정',
-  childUsage: 'null',
-  frequency: 'null',
-  alarm: {
-    adult: 3,
-    child: 1,
-  },
+  adult: 3,
+  child: 1,
 };
