@@ -107,9 +107,22 @@ const App = () => {
       >
         <Tab.Screen
           name='대시보드'
-          component={DashBoardScreen(DATE, USER_RES, PILL_RES, FITBIT_RES)}
+          initialParams={{
+            date: DATE,
+            userData: USER_RES,
+            pillData: PILL_RES,
+            fitbitData: FITBIT_RES,
+          }}
+          component={DashBoardScreen}
         />
-        <Tab.Screen name='복약 알림' component={AlarmListScreen} />
+        <Tab.Screen
+          name='복약 알림'
+          initialParams={{
+            pillName: PILL_RES.pillname,
+            alarmTimes: ALARM_TIMES,
+          }}
+          component={AlarmListScreen}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

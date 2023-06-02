@@ -2,7 +2,8 @@ import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'reac
 
 import React from 'react';
 
-const DashBoardScreen = (DATE, userData, pillData, fitbitData) => {
+const DashBoardScreen = ({ route }) => {
+  const { date, userData, pillData, fitbitData } = route.params;
   return (
     <ScrollView style={styles.container}>
       <View style={styles.userCard}>
@@ -10,7 +11,7 @@ const DashBoardScreen = (DATE, userData, pillData, fitbitData) => {
           source={require('../assets/background_image.png')}
           style={styles.userCardBackground}
         >
-          <Text style={styles.dateText}>{DATE}</Text>
+          <Text style={styles.dateText}>{date}</Text>
           <Text style={styles.greetingText}>
             <Text style={styles.nameText}>{userData.name}</Text>
             보호자님, 안녕하세요

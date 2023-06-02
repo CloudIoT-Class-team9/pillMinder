@@ -2,17 +2,19 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import React from 'react';
 
-const AlarmListScreen = (pillname, ALARM_TIMES) => {
+const AlarmListScreen = ({ route }) => {
+  const { pillName, alarmTimes } = route.params;
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.medicationCard}>
         <Text style={styles.cardTitle}>오늘의 복약 알림</Text>
       </View>
-      {ALARM_TIMES.map((alarm, index) => (
+      {alarmTimes.map((alarm, index) => (
         <View key={index} style={styles.medicationInfoContainer}>
           <Image source={require('../assets/ic_alarm.png')} style={styles.medicationPhoto} />
           <View style={styles.medicationTextContainer}>
-            <Text style={styles.medicationName}>{pillname}</Text>
+            <Text style={styles.medicationName}>{pillName}</Text>
             <Text style={styles.medicationInstructions}>{alarm}</Text>
           </View>
         </View>
