@@ -8,12 +8,13 @@ export const sendPillNotification = async (pillname, pills, alarmNum) => {
     return;
   }
 
+  const alarmTimes = []; // 알람 시간을 저장할 배열
+
   //  알림 예약 함수 (각각의 알림을 스케줄링)
   const scheduleMultipleNotifications = async () => {
     // 간격을 계산하기 위한 1일의 밀리초 값
     const oneDay = 24 * 60 * 60 * 1000;
 
-    // const timeRange = 10 * 60 * 1000; // 10분 (밀리초 단위)
     const interval = oneDay / alarmNum;
 
     // 알림 스케줄링을 위해 현재 시간을 가져옴
@@ -38,14 +39,23 @@ export const sendPillNotification = async (pillname, pills, alarmNum) => {
         trigger,
       });
 
-      console.log(`알림 ${i}이 예약되었습니다.`);
+      const date = new Date(trigger);
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const formattedDate = `${hours}:${minutes}`;
+
+      alarmTimes.push(formattedDate);
+      console.log(`복약 알림 ${i}이 ${formattedDate}에 예약되었습니다.`);
     }
+
+    console.log('알림 예약 시간 : ', alarmTimes);
+    return alarmTimes;
   };
 
   // 알림 예약 함수 호출
   try {
     await scheduleMultipleNotifications();
-    console.log('복약 알림이 예약되었습니다.');
+    console.log('복약 알림이 모두 정상적으로 예약되었습니다.');
   } catch (error) {
     console.log('복약 알림 예약 중 오류가 발생했습니다:', error);
   }

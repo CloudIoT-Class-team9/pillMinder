@@ -36,7 +36,7 @@ const App = () => {
     // removeAllScheduledNotifications();
 
     (async () => {
-      await sendPillNotification(3);
+      await sendPillNotification('타이레놀정160mg', 1, 3);
 
       const subscription = Notifications.addNotificationReceivedListener((notification) => {
         // 알림이 수신된 경우 처리할 코드
