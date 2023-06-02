@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -31,6 +29,14 @@
         "projectId": "22feca0d-d496-4f97-a51f-fd4844e1d89d"
       }
     },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification_icon.png"
+        }
+      ]
+    ],
     "owner": "iamphj3"
   }
 }

@@ -9,11 +9,14 @@ import { FITBIT_RES } from './data/fitbit';
 import { NavigationContainer } from '@react-navigation/native';
 import { PILL_RES } from './data/pill';
 import { USER_RES } from './data/user';
+import { authorize } from './Auth';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { sendPillNotification } from './utils/sendPillNotification';
 
 const Tab = createBottomTabNavigator();
+const code = await authorize();
 
+console.log(code);
 const App = () => {
   const today = new Date();
   const todayYear = today.getFullYear();
@@ -82,18 +85,16 @@ const App = () => {
 
   // 알람 예약
   useEffect(() => {
-    (async () => {
-      await sendPillNotification(USER_RES.pillname, PILL_RES.adult.pills, PILL_RES.adult.times);
-
-      const subscription = Notifications.addNotificationReceivedListener((notification) => {
-        // 알림이 수신된 경우 처리할 코드
-        console.log('알림 수신:', notification);
-      });
-
-      return () => {
-        subscription.remove();
-      };
-    })();
+    // (async () => {
+    //   await sendPillNotification(USER_RES.pillname, PILL_RES.adult.pills, PILL_RES.adult.times);
+    //   const subscription = Notifications.addNotificationReceivedListener((notification) => {
+    //     // 알림이 수신된 경우 처리할 코드
+    //     console.log('알림 수신:', notification);
+    //   });
+    //   return () => {
+    //     subscription.remove();
+    //   };
+    // })();
   }, []);
 
   return (
