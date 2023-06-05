@@ -7,6 +7,16 @@ export const client = axios.create({
   },
 });
 
+export const postAlarm = async () => {
+  try {
+    const { data } = await client.post(`/postalarm`);
+    console.log('postAlarm', data);
+    return data;
+  } catch (err) {
+    console.error('postAlarm err', err);
+  }
+};
+
 export const getUserData = async (clientId) => {
   try {
     const { data } = await client.get(`/getuser?clientId=${clientId}`);

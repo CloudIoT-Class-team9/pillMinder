@@ -6,7 +6,8 @@ import AlarmListScreen from './screens/AlarmListScreen';
 import DashBoardScreen from './screens/DashBoardScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { sendPillNotification } from './utils/sendPillNotification';
+import { postAlarm } from './apis/api';
+import { removeAllScheduledNotifications } from './utils/removeAllNotifications';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +28,9 @@ const App = () => {
       if (status !== 'granted') {
         alert('알림 권한이 거부되었습니다!');
       }
+      await postAlarm();
     })();
+    removeAllScheduledNotifications();
   }, []);
 
   return (
