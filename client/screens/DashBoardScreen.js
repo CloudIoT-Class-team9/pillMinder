@@ -56,10 +56,10 @@ const DashBoardScreen = () => {
     fetchFitbitData();
   }, [userData]);
 
-  console.log('userData', userData);
-  console.log('fitbitData', fitbitData);
-  console.log('pillData', pillData);
-  console.log(date, time);
+  // console.log('userData', userData);
+  // console.log('pillData', pillData);
+  // console.log('fitbitData', fitbitData);
+  // console.log(date, time);
 
   return (
     <ScrollView style={styles.container}>
@@ -98,27 +98,27 @@ const DashBoardScreen = () => {
                 <Image source={require('../assets/ic_1.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Heart Rate</Text>
-              {/* <Text style={styles.healthDetailText}>{fitbitData?.heartRate}</Text> */}
+              <Text style={styles.healthDetailText}>{fitbitData?.heartRate}</Text>
             </View>
           </View>
-          <View style={styles.healthInfoCard}>
-            <View style={styles.cardContent}>
-              <View style={styles.imageContainer}>
-                <Image source={require('../assets/ic_2.png')} style={styles.healthInfoImage} />
-              </View>
-              <Text style={styles.healthInfoText}>Heart</Text>
-              {/* <Text style={styles.healthDetailText}>{fitbitData?.heartRate}</Text> */}
-            </View>
-          </View>
-        </View>
-        <View style={styles.healthInfoRow}>
           <View style={styles.healthInfoCard}>
             <View style={styles.cardContent}>
               <View style={styles.imageContainer}>
                 <Image source={require('../assets/ic_3.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Temperature</Text>
-              {/* <Text style={styles.healthDetailText}>{fitbitData?.temperature}</Text> */}
+              <Text style={styles.healthDetailText}>{fitbitData?.temperature}</Text>
+            </View>
+          </View>
+        </View>
+        {/* <View style={styles.healthInfoRow}>
+          <View style={styles.healthInfoCard}>
+            <View style={styles.cardContent}>
+              <View style={styles.imageContainer}>
+                <Image source={require('../assets/ic_3.png')} style={styles.healthInfoImage} />
+              </View>
+              <Text style={styles.healthInfoText}>Temperature</Text>
+              <Text style={styles.healthDetailText}>{fitbitData?.temperature}</Text>
             </View>
           </View>
           <View style={styles.healthInfoCard}>
@@ -130,7 +130,7 @@ const DashBoardScreen = () => {
               <Text style={styles.healthDetailText}>Stress 데이터</Text>
             </View>
           </View>
-        </View>
+        </View> */}
       </View>
     </ScrollView>
   );

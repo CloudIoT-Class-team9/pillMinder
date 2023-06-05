@@ -65,7 +65,7 @@ const App = () => {
         }}
       >
         <Tab.Screen name='대시보드' component={DashBoardScreen} />
-        {/* <Tab.Screen name='복약 알림' component={AlarmListScreen} /> */}
+        <Tab.Screen name='복약 알림' component={AlarmListScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

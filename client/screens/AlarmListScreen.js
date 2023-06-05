@@ -1,8 +1,40 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-
-import React from 'react';
+import { React, useEffect, useState } from 'react';
+import { getPillData, getUserData } from '../apis/api';
 
 const AlarmListScreen = () => {
+  const alarmTimes = ['1:32:20', '9:32:20', '17:32:20'];
+
+  const [userData, setUserdata] = useState({});
+  const [pillData, setPilldata] = useState();
+
+  // 유저 받아오기
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = await getUserData('Seung');
+      if (user !== undefined) {
+        setUserdata(user);
+        console.log('userData', userData);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  // 약 받아오기
+  useEffect(() => {
+    const fetchPillData = async () => {
+      const pill = await getPillData(userData.pillname);
+      if (pill !== undefined) {
+        setPilldata(pill);
+        console.log('pillData', pillData);
+      }
+    };
+    fetchPillData();
+  }, [userData]);
+
+  console.log('userData', userData);
+  console.log('pillData', pillData);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.medicationCard}>
@@ -12,7 +44,7 @@ const AlarmListScreen = () => {
         <View key={index} style={styles.medicationInfoContainer}>
           <Image source={require('../assets/ic_alarm.png')} style={styles.medicationPhoto} />
           <View style={styles.medicationTextContainer}>
-            <Text style={styles.medicationName}>{pillName.pillname}</Text>
+            <Text style={styles.medicationName}>{userData.pillname}</Text>
             <Text style={styles.medicationInstructions}>{alarm}</Text>
           </View>
         </View>
