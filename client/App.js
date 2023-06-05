@@ -4,24 +4,13 @@ import { React, useEffect, useState } from 'react';
 
 import AlarmListScreen from './screens/AlarmListScreen';
 import DashBoardScreen from './screens/DashBoardScreen';
-import { FITBIT_RES } from './data/fitbit';
 import { NavigationContainer } from '@react-navigation/native';
-import { PILL_RES } from './data/pill';
-import { USER_RES } from './data/user';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { sendPillNotification } from './utils/sendPillNotification';
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const today = new Date();
-  const todayYear = today.getFullYear();
-  const todayMonth = today.getMonth() + 1;
-  const todayDate = today.getDate();
-
-  const DATE = `${todayYear}-${todayMonth}-${todayDate}`;
-  const ALARM_TIMES = ['1:32:20', '9:32:20', '17:32:20'];
-
   // 알림 권한 설정
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -39,20 +28,6 @@ const App = () => {
         alert('알림 권한이 거부되었습니다!');
       }
     })();
-  }, []);
-
-  // 알람 예약
-  useEffect(() => {
-    // (async () => {
-    //   await sendPillNotification(USER_RES.pillname, PILL_RES.adult.pills, PILL_RES.adult.times);
-    //   const subscription = Notifications.addNotificationReceivedListener((notification) => {
-    //     // 알림이 수신된 경우 처리할 코드
-    //     console.log('알림 수신:', notification);
-    //   });
-    //   return () => {
-    //     subscription.remove();
-    //   };
-    // })();
   }, []);
 
   return (

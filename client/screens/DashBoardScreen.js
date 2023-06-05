@@ -1,6 +1,10 @@
+import * as Notifications from 'expo-notifications';
+
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { React, useEffect, useState } from 'react';
 import { getFitbitData, getPillData, getUserData } from '../apis/api';
+
+import { sendPillNotification } from '../utils/sendPillNotification';
 
 const DashBoardScreen = () => {
   const today = new Date();
@@ -26,7 +30,6 @@ const DashBoardScreen = () => {
       const user = await getUserData('Seung');
       if (user !== undefined) {
         setUserdata(user);
-        console.log('userData', userData);
       }
     };
     fetchUserData();
@@ -38,7 +41,6 @@ const DashBoardScreen = () => {
       const pill = await getPillData(userData.pillname);
       if (pill !== undefined) {
         setPilldata(pill);
-        console.log('pillData', pillData);
       }
     };
     fetchPillData();
@@ -50,16 +52,24 @@ const DashBoardScreen = () => {
       const fitbit = await getFitbitData(date, time);
       if (fitbit !== undefined) {
         setFitbitdata(fitbit);
-        console.log('fitbitData', fitbitData);
       }
     };
     fetchFitbitData();
   }, [userData]);
 
-  // console.log('userData', userData);
-  // console.log('pillData', pillData);
-  // console.log('fitbitData', fitbitData);
-  // console.log(date, time);
+  // // 알람 예약
+  // useEffect(() => {
+  //   (async () => {
+  //     await sendPillNotification(userData.pillname, pillData.adult.pills, pillData.adult.times);
+  //     const subscription = Notifications.addNotificationReceivedListener((notification) => {
+  //       // 알림이 수신된 경우 처리할 코드
+  //       console.log('알림 수신:', notification);
+  //     });
+  //     return () => {
+  //       subscription.remove();
+  //     };
+  //   })();
+  // }, [userData, pillData]);
 
   return (
     <ScrollView style={styles.container}>

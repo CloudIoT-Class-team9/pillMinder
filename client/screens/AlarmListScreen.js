@@ -1,9 +1,13 @@
+import * as Notifications from 'expo-notifications';
+
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { React, useEffect, useState } from 'react';
 import { getPillData, getUserData } from '../apis/api';
 
+import { sendPillNotification } from '../utils/sendPillNotification';
+
 const AlarmListScreen = () => {
-  const alarmTimes = ['1:32:20', '9:32:20', '17:32:20'];
+  const [alarmTimes, setAlarmTimes] = useState(['']);
 
   const [userData, setUserdata] = useState({});
   const [pillData, setPilldata] = useState();
@@ -26,21 +30,39 @@ const AlarmListScreen = () => {
       const pill = await getPillData(userData.pillname);
       if (pill !== undefined) {
         setPilldata(pill);
-        console.log('pillData', pillData);
       }
     };
     fetchPillData();
   }, [userData]);
 
-  console.log('userData', userData);
-  console.log('pillData', pillData);
+  // 알람 예약
+  useEffect(() => {
+    if (userData && pillData) {
+      (async () => {
+        const alarm = await sendPillNotification(
+          userData.pillname,
+          pillData.adult.pills,
+          pillData.adult.times,
+        );
+        console.log(alarm);
+        setAlarmTimes(alarm);
+        const subscription = Notifications.addNotificationReceivedListener((notification) => {
+          // 알림이 수신된 경우 처리할 코드
+          console.log('알림 수신:', notification);
+        });
+        return () => {
+          subscription.remove();
+        };
+      })();
+    }
+  }, [userData, pillData]);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.medicationCard}>
         <Text style={styles.cardTitle}>오늘의 복약 알림</Text>
       </View>
-      {alarmTimes.map((alarm, index) => (
+      {alarmTimes?.map((alarm, index) => (
         <View key={index} style={styles.medicationInfoContainer}>
           <Image source={require('../assets/ic_alarm.png')} style={styles.medicationPhoto} />
           <View style={styles.medicationTextContainer}>
