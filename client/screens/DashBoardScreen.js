@@ -1,26 +1,65 @@
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { React, useEffect, useState } from 'react';
+import { getFitbitData, getPillData, getUserData } from '../apis/api';
 
-import { getUser } from '../apis/api';
+const DashBoardScreen = () => {
+  const today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth() + 1;
+  const todayDate = today.getDate();
+  const hours = today.getHours();
+  const minutes = today.getMinutes();
 
-const DashBoardScreen = ({ route }) => {
-  const { date, pillData, fitbitData } = route.params;
+  // const date = `${todayYear}-${todayMonth}-${todayDate}`;
+  // const time = `${hours}:${minutes}`;
+
+  const date = '2023-05-18';
+  const time = '15:22';
 
   const [userData, setUserdata] = useState({});
+  const [pillData, setPilldata] = useState();
+  const [fitbitData, setFitbitdata] = useState();
 
+  // 유저 받아오기
   useEffect(() => {
     const fetchUserData = async () => {
-      const user = await getUser('Seung');
+      const user = await getUserData('Seung');
       if (user !== undefined) {
         setUserdata(user);
         console.log('userData', userData);
       }
     };
-
     fetchUserData();
   }, []);
 
+  // 약 받아오기
+  useEffect(() => {
+    const fetchPillData = async () => {
+      const pill = await getPillData(userData.pillname);
+      if (pill !== undefined) {
+        setPilldata(pill);
+        console.log('pillData', pillData);
+      }
+    };
+    fetchPillData();
+  }, [userData]);
+
+  // fitbit 받아오기
+  useEffect(() => {
+    const fetchFitbitData = async () => {
+      const fitbit = await getFitbitData(date, time);
+      if (fitbit !== undefined) {
+        setFitbitdata(fitbit);
+        console.log('fitbitData', fitbitData);
+      }
+    };
+    fetchFitbitData();
+  }, [userData]);
+
   console.log('userData', userData);
+  console.log('fitbitData', fitbitData);
+  console.log('pillData', pillData);
+  console.log(date, time);
 
   return (
     <ScrollView style={styles.container}>
@@ -44,7 +83,7 @@ const DashBoardScreen = ({ route }) => {
         <View style={styles.medicationTextContainer}>
           <Text style={styles.medicationName}>{userData.pillname}</Text>
           <Text style={styles.medicationInstructions}>
-            1일 {pillData.adult.times}회 {pillData.adult.pills}정 복용
+            1일 {pillData?.adult.times}회 {pillData?.adult.pills}정 복용
           </Text>
         </View>
       </View>
@@ -59,7 +98,7 @@ const DashBoardScreen = ({ route }) => {
                 <Image source={require('../assets/ic_1.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Heart Rate</Text>
-              <Text style={styles.healthDetailText}>{fitbitData.heartRate}</Text>
+              {/* <Text style={styles.healthDetailText}>{fitbitData?.heartRate}</Text> */}
             </View>
           </View>
           <View style={styles.healthInfoCard}>
@@ -68,7 +107,7 @@ const DashBoardScreen = ({ route }) => {
                 <Image source={require('../assets/ic_2.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Heart</Text>
-              <Text style={styles.healthDetailText}>{fitbitData.heartRate}</Text>
+              {/* <Text style={styles.healthDetailText}>{fitbitData?.heartRate}</Text> */}
             </View>
           </View>
         </View>
@@ -79,7 +118,7 @@ const DashBoardScreen = ({ route }) => {
                 <Image source={require('../assets/ic_3.png')} style={styles.healthInfoImage} />
               </View>
               <Text style={styles.healthInfoText}>Temperature</Text>
-              <Text style={styles.healthDetailText}>{fitbitData.temperature}</Text>
+              {/* <Text style={styles.healthDetailText}>{fitbitData?.temperature}</Text> */}
             </View>
           </View>
           <View style={styles.healthInfoCard}>

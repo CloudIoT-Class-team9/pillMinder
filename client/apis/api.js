@@ -7,19 +7,10 @@ export const client = axios.create({
   },
 });
 
-export const getUser = async (clientId) => {
-  try {
-    const { data } = await client.get(`/getuser?clientId=${clientId}`);
-    console.log('data', data);
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 export const getUserData = async (clientId) => {
   try {
-    const { data } = await client.get(`/user`);
+    const { data } = await client.get(`/getuser?clientId=${clientId}`);
+    console.log('getUserData', data);
     return data;
   } catch (err) {
     console.error(err);
@@ -28,16 +19,18 @@ export const getUserData = async (clientId) => {
 
 export const getPillData = async (pillname) => {
   try {
-    const { data } = await client.get(`/pill`);
+    const { data } = await client.get(`/getpilltime?pillname=${pillname}`);
+    console.log('getPillData', data);
     return data;
   } catch (err) {
     console.error(err);
   }
 };
 
-export const getFitbitData = async (clientId, dateTime, time) => {
+export const getFitbitData = async (dateTime, time) => {
   try {
-    const { data } = await client.get(`/fitbit`);
+    const { data } = await client.get(`/getfitbitdata?date=${dateTime}&time=${time}`);
+    console.log('getFitbitData', data);
     return data;
   } catch (err) {
     console.error(err);

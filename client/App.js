@@ -1,7 +1,6 @@
 import * as Notifications from 'expo-notifications';
 
 import { React, useEffect, useState } from 'react';
-import { getFitbitData, getPillData, getUser, getUserData } from './apis/api';
 
 import AlarmListScreen from './screens/AlarmListScreen';
 import DashBoardScreen from './screens/DashBoardScreen';
@@ -21,31 +20,6 @@ const App = () => {
   const todayDate = today.getDate();
 
   const DATE = `${todayYear}-${todayMonth}-${todayDate}`;
-  const CLIENT_ID = 'Seung';
-
-  const [userData, setUserdata] = useState();
-  // {
-  // name: '',
-  // age: 0,
-  // pillname: '',
-  // }
-
-  const [pillData, setPilldata] = useState({
-    adult: {
-      pills: 0,
-      times: 0,
-    },
-    child: {
-      pills: 0,
-      times: 0,
-    },
-  });
-
-  const [fitbitData, setFitbitdata] = useState({
-    heartRate: '0',
-    temperature: '0',
-  });
-
   const ALARM_TIMES = ['1:32:20', '9:32:20', '17:32:20'];
 
   // 알림 권한 설정
@@ -56,28 +30,6 @@ const App = () => {
       shouldSetBadge: false,
     }),
   });
-
-  // API 호출 및 저장
-  // useEffect(() => {
-  // (async () => {
-  // const user = await getUser(CLIENT_ID);
-  // setUserdata(user);
-  // const pill = await getPillData(userData.pillname);
-  // setPilldata(pill);
-  // const fitbit = await getFitbitData(CLIENT_ID, DATE, ALARM_TIMES[0]);
-  // setFitbitdata(fitbit);
-  // })();
-  // }, []);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const user = await getUser(CLIENT_ID);
-      setUserdata(user);
-      console.log('userData', userData);
-    };
-
-    fetchUserData();
-  }, []);
 
   // 알람 권한 허용
   useEffect(() => {
@@ -91,16 +43,16 @@ const App = () => {
 
   // 알람 예약
   useEffect(() => {
-    (async () => {
-      await sendPillNotification(USER_RES.pillname, PILL_RES.adult.pills, PILL_RES.adult.times);
-      const subscription = Notifications.addNotificationReceivedListener((notification) => {
-        // 알림이 수신된 경우 처리할 코드
-        console.log('알림 수신:', notification);
-      });
-      return () => {
-        subscription.remove();
-      };
-    })();
+    // (async () => {
+    //   await sendPillNotification(USER_RES.pillname, PILL_RES.adult.pills, PILL_RES.adult.times);
+    //   const subscription = Notifications.addNotificationReceivedListener((notification) => {
+    //     // 알림이 수신된 경우 처리할 코드
+    //     console.log('알림 수신:', notification);
+    //   });
+    //   return () => {
+    //     subscription.remove();
+    //   };
+    // })();
   }, []);
 
   return (
@@ -112,23 +64,8 @@ const App = () => {
           },
         }}
       >
-        <Tab.Screen
-          name='대시보드'
-          initialParams={{
-            date: DATE,
-            pillData: PILL_RES,
-            fitbitData: FITBIT_RES,
-          }}
-          component={DashBoardScreen}
-        />
-        <Tab.Screen
-          name='복약 알림'
-          initialParams={{
-            pillName: userData,
-            alarmTimes: ALARM_TIMES,
-          }}
-          component={AlarmListScreen}
-        />
+        <Tab.Screen name='대시보드' component={DashBoardScreen} />
+        {/* <Tab.Screen name='복약 알림' component={AlarmListScreen} /> */}
       </Tab.Navigator>
     </NavigationContainer>
   );

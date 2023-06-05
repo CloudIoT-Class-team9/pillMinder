@@ -2,9 +2,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import React from 'react';
 
-const AlarmListScreen = ({ route }) => {
-  const { pillName, alarmTimes } = route.params;
-
+const AlarmListScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.medicationCard}>
