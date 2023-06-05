@@ -1,10 +1,6 @@
-import * as Notifications from 'expo-notifications';
-
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { React, useEffect, useState } from 'react';
 import { getFitbitData, getPillData, getUserData } from '../apis/api';
-
-import { sendPillNotification } from '../utils/sendPillNotification';
 
 const DashBoardScreen = () => {
   const today = new Date();
@@ -55,21 +51,7 @@ const DashBoardScreen = () => {
       }
     };
     fetchFitbitData();
-  }, [userData]);
-
-  // // 알람 예약
-  // useEffect(() => {
-  //   (async () => {
-  //     await sendPillNotification(userData.pillname, pillData.adult.pills, pillData.adult.times);
-  //     const subscription = Notifications.addNotificationReceivedListener((notification) => {
-  //       // 알림이 수신된 경우 처리할 코드
-  //       console.log('알림 수신:', notification);
-  //     });
-  //     return () => {
-  //       subscription.remove();
-  //     };
-  //   })();
-  // }, [userData, pillData]);
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
