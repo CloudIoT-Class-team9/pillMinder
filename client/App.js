@@ -30,7 +30,7 @@ const App = () => {
       }
       await postAlarm();
     })();
-    removeAllScheduledNotifications();
+    // removeAllScheduledNotifications();
   }, []);
 
   return (
