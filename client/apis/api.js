@@ -13,7 +13,7 @@ export const getUserData = async (clientId) => {
     console.log('getUserData', data);
     return data;
   } catch (err) {
-    console.error(err);
+    console.error('getUserData err', err);
   }
 };
 
@@ -23,7 +23,7 @@ export const getPillData = async (pillname) => {
     console.log('getPillData', data);
     return data;
   } catch (err) {
-    console.error(err);
+    console.error('getPillData err', err);
   }
 };
 
@@ -33,6 +33,6 @@ export const getFitbitData = async (dateTime, time) => {
     console.log('getFitbitData', data);
     return data;
   } catch (err) {
-    console.error(err);
+    console.error('getFitbitData err', err);
   }
 };

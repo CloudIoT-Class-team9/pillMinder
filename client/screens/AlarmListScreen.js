@@ -37,24 +37,22 @@ const AlarmListScreen = () => {
 
   // 알람 예약
   useEffect(() => {
-    if (userData && pillData) {
-      (async () => {
-        const alarm = await sendPillNotification(
-          userData.pillname,
-          pillData.adult.pills,
-          pillData.adult.times,
-        );
-        console.log(alarm);
-        setAlarmTimes(alarm);
-        const subscription = Notifications.addNotificationReceivedListener((notification) => {
-          // 알림이 수신된 경우 처리할 코드
-          console.log('알림 수신:', notification);
-        });
-        return () => {
-          subscription.remove();
-        };
-      })();
-    }
+    (async () => {
+      const alarm = await sendPillNotification(
+        userData.pillname,
+        pillData.adult.pills,
+        pillData.adult.times,
+      );
+      console.log(alarm);
+      setAlarmTimes(alarm);
+      const subscription = Notifications.addNotificationReceivedListener((notification) => {
+        // 알림이 수신된 경우
+        console.log('알림 수신:', notification);
+      });
+      return () => {
+        subscription.remove();
+      };
+    })();
   }, [userData, pillData]);
 
   return (
