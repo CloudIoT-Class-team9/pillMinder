@@ -13,18 +13,14 @@ export const sendPillNotification = async (pillname, pills, alarmNum) => {
   //  알림 예약 함수 (각각의 알림을 스케줄링)
   const scheduleMultipleNotifications = async () => {
     // 간격을 계산하기 위한 1일의 밀리초 값 (24 * 60 * 60 * 1000)
-    const oneDay = 24 * 60 * 60 * 1000;
-
+    const oneDay = 5 * 60 * 1000;
     const interval = oneDay / alarmNum;
-
     // 알림 스케줄링을 위해 현재 시간을 가져옴
     const currentTime = new Date().getTime();
-
     // 알림 예약 함수
     for (let i = 1; i <= alarmNum; i++) {
       // alarmNum번 알림을 보낼 시간 계산
       const trigger = currentTime + i * interval;
-
       const notificationContent = {
         title: `복약 시간입니다! [${i} / ${alarmNum}회]`,
         body: `${pillname} ${pills}정을 복용할 시간이에요.`,
@@ -38,7 +34,6 @@ export const sendPillNotification = async (pillname, pills, alarmNum) => {
         content: notificationContent,
         trigger,
       });
-
       const date = new Date(trigger);
       const hours = date.getHours();
       const minutes = date.getMinutes();

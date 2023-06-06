@@ -3,6 +3,7 @@ import * as Notifications from 'expo-notifications';
 import { React, useEffect, useState } from 'react';
 
 import AlarmListScreen from './screens/AlarmListScreen';
+import Amplify from 'aws-amplify';
 import DashBoardScreen from './screens/DashBoardScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,14 +11,15 @@ import { postAlarm } from './apis/api';
 import { removeAllScheduledNotifications } from './utils/removeAllNotifications';
 
 const Tab = createBottomTabNavigator();
+Amplify.configure(config);
 
 const App = () => {
   // 알림 권한 설정
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowAlert: true,
-      shouldPlaySound: false,
-      shouldSetBadge: false,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
     }),
   });
 
@@ -30,9 +32,9 @@ const App = () => {
       }
       await postAlarm();
     })();
-    // removeAllScheduledNotifications();
   }, []);
 
+  // removeAllScheduledNotifications();
   return (
     <NavigationContainer>
       <Tab.Navigator
